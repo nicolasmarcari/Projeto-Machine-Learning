@@ -55,7 +55,7 @@ class LSTMModel(nn.Module):
         return out
 
 # ---------- ETAPA 1: TREINAMENTO ----------
-print("🔁 Preparando dados para treino...")
+print("Preparando dados para treino...")
 
 all_train_X = []
 all_train_y = []
@@ -89,7 +89,7 @@ criterion = nn.MSELoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
 # Treinar
-print("🚀 Treinando modelo...")
+print("Treinando modelo...")
 model.train()
 for epoch in range(epochs):
     epoch_loss = 0
@@ -101,10 +101,10 @@ for epoch in range(epochs):
         optimizer.step()
         epoch_loss += loss.item()
     print(f"Epoch {epoch+1}/{epochs} - Loss: {epoch_loss/len(train_loader):.6f}")
-print("✅ Treinamento finalizado.\n")
+print("Treinamento finalizado.\n")
 
 # ---------- ETAPA 2: PREVISÃO ----------
-print(f"🔍 Baixando dados para {ticker_previsao} e preparando previsão para 2024...")
+print(f"Baixando dados para {ticker_previsao} e preparando previsão para 2024...")
 
 df = yf.download(ticker_previsao, start=start_date, end=end_train, auto_adjust=True)
 df = df[~((df.index >= pandemic_start) & (df.index <= pandemic_end))]
@@ -144,8 +144,8 @@ min_len = min(len(real_close), len(forecast_close))
 
 rmse = np.sqrt(mean_squared_error(real_close[:min_len], forecast_close[:min_len]))
 mae = mean_absolute_error(real_close[:min_len], forecast_close[:min_len])
-print(f"📊 RMSE: {rmse:.4f}")
-print(f"📊 MAE: {mae:.4f}\n")
+print(f"RMSE: {rmse:.4f}")
+print(f"MAE: {mae:.4f}\n")
 
 # ---------- ETAPA 5: GRÁFICO CONTÍNUO COMPARATIVO ----------
 previsao_completa_close = pd.concat([
